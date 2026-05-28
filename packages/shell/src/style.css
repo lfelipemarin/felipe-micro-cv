@@ -1,28 +1,146 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ─── Theme tokens ───────────────────────────────────────── */
 :root {
-  --react-color: #61DAFB;
-  --vue-color:   #42b883;
-  --shell-bg:    #0f0f11;
-  --panel-bg:    #16161a;
+  /* dark (default) */
+  --bg:          #0f0f11;
+  --panel:       #16161a;
+  --surface:     #1c1c22;
   --border:      #2a2a30;
+  --separator:   rgba(255,255,255,0.04);
+  --overlay:     rgba(255,255,255,0.04);
   --text:        #e8e6f0;
+  --text-dim:    #b0aec0;
   --muted:       #7a7890;
+  --react:       #61DAFB;
   --react-dim:   rgba(97,218,251,0.12);
+  --vue:         #42b883;
   --vue-dim:     rgba(66,184,131,0.12);
+  --accent:      #bb86fc;
+  --accent-dim:  rgba(187,134,252,0.12);
+  --pinia:       #ffd700;
+  --pinia-dim:   rgba(255,215,0,0.12);
+  --success:     #4ade80;
+  --bus-bg:      #13131a;
+  --log-bg:      #111116;
+  --footer-bg:   #0c0c0e;
 }
+
+[data-theme="light"] {
+  --bg:          #f0f0f8;
+  --panel:       #ffffff;
+  --surface:     #f0f0f5;
+  --border:      #dddcea;
+  --separator:   rgba(0,0,0,0.06);
+  --overlay:     rgba(0,0,0,0.04);
+  --text:        #1a1828;
+  --text-dim:    #4a4860;
+  --muted:       #8080a0;
+  --react:       #0a85a8;
+  --react-dim:   rgba(10,133,168,0.1);
+  --vue:         #1a9160;
+  --vue-dim:     rgba(26,145,96,0.1);
+  --accent:      #6d28d9;
+  --accent-dim:  rgba(109,40,217,0.1);
+  --pinia:       #a07800;
+  --pinia-dim:   rgba(160,120,0,0.1);
+  --success:     #16a34a;
+  --bus-bg:      #e8e7f5;
+  --log-bg:      #ededf7;
+  --footer-bg:   #e2e1ef;
+}
+
+[data-theme="nord"] {
+  --bg:          #2e3440;
+  --panel:       #3b4252;
+  --surface:     #434c5e;
+  --border:      #4c566a;
+  --separator:   rgba(255,255,255,0.05);
+  --overlay:     rgba(255,255,255,0.04);
+  --text:        #eceff4;
+  --text-dim:    #d8dee9;
+  --muted:       #9099aa;
+  --react:       #88c0d0;
+  --react-dim:   rgba(136,192,208,0.15);
+  --vue:         #a3be8c;
+  --vue-dim:     rgba(163,190,140,0.15);
+  --accent:      #b48ead;
+  --accent-dim:  rgba(180,142,173,0.15);
+  --pinia:       #ebcb8b;
+  --pinia-dim:   rgba(235,203,139,0.15);
+  --success:     #a3be8c;
+  --bus-bg:      #272c38;
+  --log-bg:      #252a35;
+  --footer-bg:   #222730;
+}
+
+[data-theme="monokai"] {
+  --bg:          #272822;
+  --panel:       #2d2e27;
+  --surface:     #3e3d32;
+  --border:      #49483e;
+  --separator:   rgba(255,255,255,0.05);
+  --overlay:     rgba(255,255,255,0.04);
+  --text:        #f8f8f2;
+  --text-dim:    #cfcfc2;
+  --muted:       #75715e;
+  --react:       #66d9e8;
+  --react-dim:   rgba(102,217,232,0.12);
+  --vue:         #a6e22e;
+  --vue-dim:     rgba(166,226,46,0.12);
+  --accent:      #ae81ff;
+  --accent-dim:  rgba(174,129,255,0.12);
+  --pinia:       #e6db74;
+  --pinia-dim:   rgba(230,219,116,0.12);
+  --success:     #a6e22e;
+  --bus-bg:      #1e1e19;
+  --log-bg:      #1a1a15;
+  --footer-bg:   #1a1a15;
+}
+
+[data-theme="dracula"] {
+  --bg:          #282a36;
+  --panel:       #21222c;
+  --surface:     #2d2f3d;
+  --border:      #44475a;
+  --separator:   rgba(255,255,255,0.05);
+  --overlay:     rgba(255,255,255,0.04);
+  --text:        #f8f8f2;
+  --text-dim:    #cdd6f4;
+  --muted:       #6272a4;
+  --react:       #8be9fd;
+  --react-dim:   rgba(139,233,253,0.12);
+  --vue:         #50fa7b;
+  --vue-dim:     rgba(80,250,123,0.12);
+  --accent:      #bd93f9;
+  --accent-dim:  rgba(189,147,249,0.12);
+  --pinia:       #f1fa8c;
+  --pinia-dim:   rgba(241,250,140,0.12);
+  --success:     #50fa7b;
+  --bus-bg:      #1e2030;
+  --log-bg:      #191a24;
+  --footer-bg:   #191a24;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+html, body { height: 100%; }
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: var(--shell-bg);
+  background: var(--bg);
   color: var(--text);
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* ─── Top bar ────────────────────────────────────────────── */
 .arch-banner {
-  background: var(--shell-bg);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   padding: 10px 20px;
   display: flex;
@@ -32,7 +150,6 @@ body {
   font-size: 13px;
   color: var(--muted);
 }
-
 .logo {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
@@ -40,9 +157,7 @@ body {
   color: var(--text);
   letter-spacing: -0.5px;
 }
-
 .banner-pills { display: flex; gap: 8px; align-items: center; }
-
 .pill {
   display: inline-flex;
   align-items: center;
@@ -52,24 +167,62 @@ body {
   font-size: 12px;
   font-weight: 500;
 }
-.pill-shell { background: rgba(255,255,255,0.06); color: #aaa; border: 1px solid var(--border); }
-.pill-react { background: var(--react-dim); color: var(--react-color); border: 1px solid rgba(97,218,251,0.25); }
-.pill-vue   { background: var(--vue-dim);   color: var(--vue-color);   border: 1px solid rgba(66,184,131,0.25); }
-
+.pill-shell { background: var(--overlay); color: var(--muted); border: 1px solid var(--border); }
+.pill-react { background: var(--react-dim); color: var(--react); border: 1px solid color-mix(in srgb, var(--react) 30%, transparent); }
+.pill-vue   { background: var(--vue-dim);   color: var(--vue);   border: 1px solid color-mix(in srgb, var(--vue)   30%, transparent); }
 .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-.dot-react { background: var(--react-color); }
-.dot-vue   { background: var(--vue-color); }
+.dot-react { background: var(--react); }
+.dot-vue   { background: var(--vue); }
+.banner-desc { font-size: 12px; }
+
+/* ─── Theme switcher ─────────────────────────────────────── */
+.theme-bar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.theme-bar-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.theme-options { display: flex; gap: 4px; }
+.theme-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  transition: all 0.15s;
+}
+.theme-btn:hover { color: var(--text); border-color: var(--muted); }
+.theme-btn.active { background: var(--overlay); color: var(--text); border-color: var(--muted); }
+
+/* Nord swatch accent */
+[data-theme="dark"]    .theme-btn[data-theme="dark"]    { border-color: var(--react); color: var(--react); background: var(--react-dim); }
+[data-theme="light"]   .theme-btn[data-theme="light"]   { border-color: var(--react); color: var(--react); background: var(--react-dim); }
+[data-theme="nord"]    .theme-btn[data-theme="nord"]    { border-color: var(--react); color: var(--react); background: var(--react-dim); }
+[data-theme="monokai"] .theme-btn[data-theme="monokai"] { border-color: var(--react); color: var(--react); background: var(--react-dim); }
+[data-theme="dracula"] .theme-btn[data-theme="dracula"] { border-color: var(--react); color: var(--react); background: var(--react-dim); }
 
 /* ─── MFE panels ─────────────────────────────────────────── */
 .layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  flex: 1;
+  overflow: hidden;
 }
-
-.mfe-pane { min-height: 520px; overflow: hidden; }
+.mfe-pane { overflow-y: auto; }
 .react-pane { border-right: 1px solid var(--border); }
 
-/* Loading placeholder */
 .panel-loading {
   padding: 3rem 1.5rem;
   font-family: 'DM Mono', monospace;
@@ -81,7 +234,7 @@ body {
 
 /* ─── Event bus strip ────────────────────────────────────── */
 .event-bus-section {
-  background: #13131a;
+  background: var(--bus-bg);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   padding: 14px 20px;
@@ -89,7 +242,6 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-
 .section-label {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
@@ -97,11 +249,10 @@ body {
   letter-spacing: 0.1em;
   margin-bottom: 8px;
 }
-.sl-react { color: rgba(97,218,251,0.7); }
-.sl-vue   { color: rgba(66,184,131,0.7); }
+.sl-react { color: color-mix(in srgb, var(--react) 75%, transparent); }
+.sl-vue   { color: color-mix(in srgb, var(--vue)   75%, transparent); }
 
 .dispatch-row { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-
 .dispatch-btn {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
@@ -112,13 +263,13 @@ body {
   background: transparent;
   transition: all 0.15s;
 }
-.react-btn { border-color: rgba(97,218,251,0.3); color: var(--react-color); }
+.react-btn { border-color: color-mix(in srgb, var(--react) 35%, transparent); color: var(--react); }
 .react-btn:hover { background: var(--react-dim); }
-.vue-btn   { border-color: rgba(66,184,131,0.3); color: var(--vue-color); }
+.vue-btn   { border-color: color-mix(in srgb, var(--vue) 35%, transparent);   color: var(--vue); }
 .vue-btn:hover   { background: var(--vue-dim); }
 
 .event-log {
-  background: #111116;
+  background: var(--log-bg);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 8px 10px;
@@ -129,13 +280,13 @@ body {
   overflow-y: auto;
 }
 .log-entry { padding: 1px 0; line-height: 1.4; }
-.log-react { color: var(--react-color); }
-.log-vue   { color: var(--vue-color); }
+.log-react { color: var(--react); }
+.log-vue   { color: var(--vue); }
 .log-time  { color: var(--muted); margin-right: 6px; }
 
 /* ─── Footer ─────────────────────────────────────────────── */
 .arch-footer {
-  background: #0c0c0e;
+  background: var(--footer-bg);
   border-top: 1px solid var(--border);
   padding: 10px 20px;
   display: flex;
