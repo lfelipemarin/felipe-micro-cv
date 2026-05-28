@@ -6,7 +6,8 @@
     "dev:mfes": "pnpm -F mfe-react build && pnpm -F mfe-vue build",
     "dev": "pnpm dev:mfes && concurrently --names 'react,vue,shell' --prefix-colors 'cyan,green,white' \"pnpm -F mfe-react preview\" \"pnpm -F mfe-vue preview\" \"pnpm -F shell dev\"",
     "build": "pnpm -F mfe-react build && pnpm -F mfe-vue build && pnpm -F shell build",
-    "preview": "concurrently --names 'react,vue,shell' --prefix-colors 'cyan,green,white' \"pnpm -F mfe-react preview\" \"pnpm -F mfe-vue preview\" \"pnpm -F shell preview\""
+    "preview": "concurrently --names 'react,vue,shell' --prefix-colors 'cyan,green,white' \"pnpm -F mfe-react preview\" \"pnpm -F mfe-vue preview\" \"pnpm -F shell preview\"",
+    "build:gh-pages": "node scripts/gh-pages-build.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"
