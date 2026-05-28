@@ -1,3 +1,24 @@
+// ─── Theme ───────────────────────────────────────────────
+const THEMES = ['dark', 'light', 'nord', 'monokai', 'dracula'];
+
+function applyTheme(name) {
+  if (!THEMES.includes(name)) name = 'dark';
+  document.documentElement.setAttribute('data-theme', name);
+  localStorage.setItem('cv-theme', name);
+  document.querySelectorAll('.theme-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.theme === name);
+  });
+}
+
+function setupThemeSwitcher() {
+  const saved = localStorage.getItem('cv-theme') || 'dark';
+  applyTheme(saved);
+  document.querySelectorAll('.theme-btn').forEach((btn) => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+  });
+}
+
+// ─── Event bus ───────────────────────────────────────────
 const RX_SECTIONS = ['experience', 'skills', 'contact'];
 const PN_SECTIONS  = ['projects', 'education', 'about'];
 let rxIdx = 0, pnIdx = 0;
@@ -50,6 +71,7 @@ function setupEventBus() {
 }
 
 async function bootstrap() {
+  setupThemeSwitcher();
   setupEventBus();
 
   try {
