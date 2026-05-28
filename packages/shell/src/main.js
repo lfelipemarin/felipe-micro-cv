@@ -1,24 +1,5 @@
-// ─── Theme ───────────────────────────────────────────────
-const THEMES = ['dark', 'light', 'nord', 'monokai', 'dracula'];
+import { emit, on } from './eventBus.js';
 
-function applyTheme(name) {
-  if (!THEMES.includes(name)) name = 'dark';
-  document.documentElement.setAttribute('data-theme', name);
-  localStorage.setItem('cv-theme', name);
-  document.querySelectorAll('.theme-btn').forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.theme === name);
-  });
-}
-
-function setupThemeSwitcher() {
-  const saved = localStorage.getItem('cv-theme') || 'dark';
-  applyTheme(saved);
-  document.querySelectorAll('.theme-btn').forEach((btn) => {
-    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
-  });
-}
-
-// ─── Event bus ───────────────────────────────────────────
 const RX_SECTIONS = ['experience', 'skills', 'contact'];
 const PN_SECTIONS  = ['projects', 'education', 'about'];
 let rxIdx = 0, pnIdx = 0;
@@ -36,37 +17,57 @@ function addLog(id, msg, type) {
   log.prepend(el);
 }
 
+// ─── Theme ───────────────────────────────────────────────
+const THEMES = ['dark', 'light', 'nord', 'monokai', 'dracula'];
+
+function applyTheme(name) {
+  if (!THEMES.includes(name)) name = 'dark';
+  document.documentElement.setAttribute('data-theme', name);
+  localStorage.setItem('cv-theme', name);
+  document.querySelectorAll('.theme-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.theme === name);
+  });
+}
+
+function setupThemeSwitcher() {
+  applyTheme(localStorage.getItem('cv-theme') || 'dark');
+  document.querySelectorAll('.theme-btn').forEach((btn) => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+  });
+}
+
+// ─── Event bus ───────────────────────────────────────────
 function setupEventBus() {
   // MFE → shell: action results
-  window.addEventListener('cv:react-action', (e) => addLog('react-log', e.detail.result, 'react'));
-  window.addEventListener('cv:vue-action',   (e) => addLog('vue-log',   e.detail.result, 'vue'));
+  on('react-action', ({ result }) => addLog('react-log', result, 'react'));
+  on('vue-action',   ({ result }) => addLog('vue-log',   result, 'vue'));
 
   // Cross-MFE pings (relayed by the shell)
-  window.addEventListener('cv:ping-vue',   () => addLog('vue-log',   '↩ pong from react mfe', 'vue'));
-  window.addEventListener('cv:ping-react', () => addLog('react-log', '↩ pong from vue mfe',   'react'));
+  on('ping-vue',   () => addLog('vue-log',   '↩ pong from react mfe', 'vue'));
+  on('ping-react', () => addLog('react-log', '↩ pong from vue mfe',   'react'));
 
   // Shell → React MFE buttons
   document.getElementById('btn-rx-section')?.addEventListener('click', () => {
     rxIdx = (rxIdx + 1) % RX_SECTIONS.length;
-    window.dispatchEvent(new CustomEvent('cv:shell-react', { detail: { action: 'SET_ACTIVE_SECTION', payload: RX_SECTIONS[rxIdx] } }));
+    emit('shell-react', { action: 'SET_ACTIVE_SECTION', payload: RX_SECTIONS[rxIdx] });
   });
   document.getElementById('btn-rx-theme')?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('cv:shell-react', { detail: { action: 'TOGGLE_THEME' } }));
+    emit('shell-react', { action: 'TOGGLE_THEME' });
   });
   document.getElementById('btn-rx-ping')?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('cv:shell-react', { detail: { action: 'PING_MFE' } }));
+    emit('shell-react', { action: 'PING_MFE' });
   });
 
   // Shell → Vue MFE buttons
   document.getElementById('btn-pn-section')?.addEventListener('click', () => {
     pnIdx = (pnIdx + 1) % PN_SECTIONS.length;
-    window.dispatchEvent(new CustomEvent('cv:shell-vue', { detail: { action: 'setSection', payload: PN_SECTIONS[pnIdx] } }));
+    emit('shell-vue', { action: 'setSection', payload: PN_SECTIONS[pnIdx] });
   });
   document.getElementById('btn-pn-fetch')?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('cv:shell-vue', { detail: { action: 'fetchProjects' } }));
+    emit('shell-vue', { action: 'fetchProjects' });
   });
   document.getElementById('btn-pn-broadcast')?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('cv:shell-vue', { detail: { action: 'broadcastEvent' } }));
+    emit('shell-vue', { action: 'broadcastEvent' });
   });
 }
 

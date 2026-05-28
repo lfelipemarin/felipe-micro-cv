@@ -20,6 +20,8 @@ function emitAction(result: string) {
 // Listen for shell-dispatched actions
 function handleShellVue(e: Event) {
   const { action, payload } = (e as CustomEvent<{ action: string; payload?: string }>).detail;
+  console.log(action, payload);
+  
   store.commits += 1;
 
   if (action === 'setSection' && payload && TABS.includes(payload as Tab)) {
