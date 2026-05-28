@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-vue:   #42b883;
+  --color-bg:    #0f0f11;
+  --color-panel: #16161a;
+}
+
+/* ─── Root ───────────────────────────────────────────────── */
+.mfe-root {
+  font-family: 'DM Sans', sans-serif;
+  color: #e8e6f0;
+  background: #16161a;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Panel header ───────────────────────────────────────── */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid #2a2a30;
+}
+.panel-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #7a7890;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.panel-dot { width: 6px; height: 6px; border-radius: 50%; background: #42b883; flex-shrink: 0; }
+.tech-badges { display: flex; gap: 5px; }
+.tech-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0.8;
+}
+.tb-vue   { background: rgba(66,184,131,0.12);  color: #42b883; }
+.tb-pinia { background: rgba(255,221,51,0.12);  color: #ffd700; }
+.tb-vite  { background: rgba(100,108,255,0.15); color: #a78bfa; }
+
+/* ─── Store block ────────────────────────────────────────── */
+.store-block {
+  background: #1c1c22;
+  border: 1px solid #2a2a30;
+  border-radius: 8px;
+  margin: 12px 16px;
+  padding: 10px 12px;
+  font-family: 'DM Mono', monospace;
+}
+.store-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 7px;
+}
+.pinia-label { color: #ffd700; }
+.store-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.store-row:last-child { border-bottom: none; }
+.store-key { color: #7a7890; font-size: 12px; }
+.store-val { color: #e8e6f0; font-size: 12px; }
+.store-val.active    { color: #4ade80; }
+.store-val.section-v { color: #42b883; }
+
+/* ─── Nav tabs ───────────────────────────────────────────── */
+.nav-tabs { display: flex; gap: 6px; padding: 0 16px 12px; flex-wrap: wrap; }
+.nav-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #2a2a30;
+  background: transparent;
+  color: #7a7890;
+  transition: all 0.15s;
+}
+.nav-tab:hover { background: rgba(255,255,255,0.04); color: #e8e6f0; }
+.nav-tab.active-vue { background: rgba(66,184,131,0.12); color: #42b883; border-color: rgba(66,184,131,0.3); }
+
+/* ─── Section content ────────────────────────────────────── */
+.cv-section { padding: 0 16px 16px; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-label-inner {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(66,184,131,0.6);
+  margin-bottom: 10px;
+}
+
+/* Projects */
+.proj-item { margin-bottom: 14px; }
+.proj-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; color: #42b883; margin-bottom: 3px; }
+.proj-desc { font-size: 13px; color: #9090a0; line-height: 1.6; }
+.proj-link { color: #42b883; font-size: 12px; font-family: 'DM Mono', monospace; text-decoration: none; margin-top: 3px; display: inline-block; }
+.proj-link:hover { text-decoration: underline; }
+
+/* Education */
+.edu-item { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #2a2a30; }
+.edu-item:last-child { border-bottom: none; margin-bottom: 0; }
+.edu-degree { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; margin-bottom: 2px; color: #e8e6f0; }
+.edu-meta { font-size: 13px; color: #42b883; font-family: 'DM Mono', monospace; }
+
+/* About */
+.about-para { font-size: 14px; color: #b0aec0; line-height: 1.7; margin-bottom: 10px; }
+.open-to-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.open-to-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(66,184,131,0.1);
+  border: 1px solid rgba(66,184,131,0.3);
+  color: #42b883;
+}

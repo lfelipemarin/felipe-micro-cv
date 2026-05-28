@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Felipe Marín — Fullstack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+
+      <!-- Top bar -->
+      <div class="arch-banner">
+        <span class="logo">Felipe Marín</span>
+        <div class="banner-pills">
+          <span class="pill pill-shell">🏠 shell</span>
+          <span class="pill pill-react"><span class="dot dot-react"></span>react@19</span>
+          <span class="pill pill-vue"><span class="dot dot-vue"></span>vue@3</span>
+        </div>
+        <span class="banner-desc">microfrontend architecture · vite workspaces</span>
+      </div>
+
+      <!-- MFE panels -->
+      <div class="layout">
+        <div class="mfe-pane react-pane" id="react-root">
+          <div class="panel-loading">Loading React MFE…</div>
+        </div>
+        <div class="mfe-pane vue-pane" id="vue-root">
+          <div class="panel-loading">Loading Vue MFE…</div>
+        </div>
+      </div>
+
+      <!-- Event bus strip -->
+      <div class="event-bus-section">
+        <div class="bus-col">
+          <div class="section-label sl-react">⚡ redux dispatch</div>
+          <div class="dispatch-row">
+            <button class="dispatch-btn react-btn" id="btn-rx-section">dispatch()</button>
+            <button class="dispatch-btn react-btn" id="btn-rx-theme">toggleTheme()</button>
+            <button class="dispatch-btn react-btn" id="btn-rx-ping">pingMfe()</button>
+          </div>
+          <div class="event-log" id="react-log"></div>
+        </div>
+        <div class="bus-col">
+          <div class="section-label sl-vue">⚡ pinia action</div>
+          <div class="dispatch-row">
+            <button class="dispatch-btn vue-btn" id="btn-pn-section">commit()</button>
+            <button class="dispatch-btn vue-btn" id="btn-pn-fetch">fetchProjects()</button>
+            <button class="dispatch-btn vue-btn" id="btn-pn-broadcast">broadcastEvent()</button>
+          </div>
+          <div class="event-log" id="vue-log"></div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="arch-footer">
+        <span>workspace: <span class="footer-name">felipe-cv-mfe</span></span>
+        <div class="footer-links">
+          <a href="https://github.com/lfelipemarin" target="_blank" rel="noopener" class="footer-link">github</a>
+          <a href="https://www.linkedin.com/in/fmv85" target="_blank" rel="noopener" class="footer-link">linkedin</a>
+          <a href="https://lfelipemarin.github.io/hooked-up" target="_blank" rel="noopener" class="footer-link">portfolio</a>
+        </div>
+        <span>lfelipe.marin@gmail.com</span>
+      </div>
+
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
